@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { getPhrases, getSentences, getParagraphs } from './utils.js';
-import map from './loader.js';
+import { getPhrases, getSentences, getParagraphs } from './utils';
+import map from './loader';
 
-const STORY =
-`（中央社記者楊啟芳台北31日電）「麟洋配」王齊麟和李洋今天在東京奧運羽球男雙勇奪金牌，賽後王齊麟興奮地在臉書發文，「我是台灣羽球選手王齊麟。」李洋則說：「我是金門人，我來自台灣。」
+const STORY = `（中央社記者楊啟芳台北31日電）「麟洋配」王齊麟和李洋今天在東京奧運羽球男雙勇奪金牌，賽後王齊麟興奮地在臉書發文，「我是台灣羽球選手王齊麟。」李洋則說：「我是金門人，我來自台灣。」
 
 今天對上中國組合劉雨辰、李俊慧的金牌戰，王齊麟和李洋在首局雖然一度落後，不過之後愈打愈順，反倒以21比18逆轉拿下；第2局則是一路領先，最終以21比18、21比12摘下金牌，為台灣拿下奧運羽球項目首金。
 
@@ -218,12 +217,15 @@ const WordBlocks = (phrases, idx) => {
 const App = () => {
   const [storyTexts, setStoryTexts] = useState(STORY);
   const paragraphs = getParagraphs(storyTexts);
-  const paragraphComp = paragraphs.map((paragraph) => {
-    const sentences = getSentences(" " + paragraph, map);
+  const paragraphComp = paragraphs.map((paragraph, idx) => {
+    const sentences = getSentences(` ${paragraph}`, map);
     const phrasesInSentences = sentences.map((sentence) => getPhrases(sentence, map));
     const words = phrasesInSentences.map((phrase, i) => WordBlocks(phrase, i));
-    return words.flat();
-  })
+    return {
+      words: words.flat(),
+      key: idx,
+    };
+  });
 
   return (
     <>
@@ -235,7 +237,7 @@ const App = () => {
       />
       <ControlPanel>BunnyLionCrocodile App</ControlPanel>
       <ZuYinStory>
-        {paragraphComp.map((p, i) => <Paragraph key={i}>{p}</Paragraph>)}
+        {paragraphComp.map((p) => <Paragraph key={p.key}>{p.words}</Paragraph>)}
       </ZuYinStory>
     </>
   );

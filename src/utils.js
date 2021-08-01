@@ -19,8 +19,8 @@ export const getPhrases = (sentence, map) => {
     }
   }
   const sortedSeparators = separators.sort((a, b) => a - b);
-  const phrases = sortedSeparators.reduce((sum, curr, i) => {
-    if (i % 2 === 0) sum.push(sentence.slice(curr, sortedSeparators[i + 1]));
+  const phrases = sortedSeparators.reduce((sum, curr, j) => {
+    if (j % 2 === 0) sum.push(sentence.slice(curr, sortedSeparators[j + 1]));
     return sum;
   }, []);
   // console.log(phrases)
