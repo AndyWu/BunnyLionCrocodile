@@ -138,9 +138,7 @@ const Tone = styled.div`
   font-size: 13px;
 `;
 
-const TONES = [TONE_DOT, TONE_2ND, TONE_3RD, TONE_4TH];
-
-const WordBlock = (char, zuYin) => {
+const WordBlock = (char, zuYin, idx) => {
   let zuYinBlock = null;
   if (zuYin) {
     if (zuYin.includes(TONE_DOT)) {
@@ -201,28 +199,29 @@ const WordBlock = (char, zuYin) => {
       );
     }
   }
+
   return (
-    <CharacterZuYinBlock>
+    <CharacterZuYinBlock key={idx}>
       <CharacterBlock>{char}</CharacterBlock>
       {zuYinBlock}
     </CharacterZuYinBlock>
   );
 };
 
-const WordBlocks = (phrases) => {
+const WordBlocks = (phrases, idx) => {
   const chars = phrases.map((p) => p.split('')).flat();
   const zuYins = phrases.map((p) => (map[p] ? map[p].split(' ') : null)).flat();
 
-  return chars.map((c, i) => WordBlock(c, zuYins[i]?.replace('-', '')));
+  return chars.map((c, i) => WordBlock(c, zuYins[i]?.replace('-', ''), `${idx}_${i}`));
 };
 
 const App = () => {
   const [storyTexts, setStoryTexts] = useState(STORY);
   const paragraphs = getParagraphs(storyTexts);
-  const paragraphComp = paragraphs.map(p => {
-    const sentences = getSentences(" " + p, map);
-    const phrasesInSentences = sentences.map((s) => getPhrases(s, map));
-    const words = phrasesInSentences.map((p) => WordBlocks(p));
+  const paragraphComp = paragraphs.map((paragraph) => {
+    const sentences = getSentences(" " + paragraph, map);
+    const phrasesInSentences = sentences.map((sentence) => getPhrases(sentence, map));
+    const words = phrasesInSentences.map((phrase, i) => WordBlocks(phrase, i));
     return words.flat();
   })
 
@@ -234,9 +233,9 @@ const App = () => {
           setStoryTexts(evt.target.value);
         }}
       />
-      <ControlPanel>hekki</ControlPanel>
+      <ControlPanel>Toolbar</ControlPanel>
       <ZuYinStory>
-        {paragraphComp.map(p => <Paragraph>{p}</Paragraph>)}
+        {paragraphComp.map((p, i) => <Paragraph key={i}>{p}</Paragraph>)}
       </ZuYinStory>
     </>
   );
