@@ -235,7 +235,9 @@ const App = () => {
           setStoryTexts(evt.target.value);
         }}
       />
-      <ControlPanel>BunnyLionCrocodile App: 請在上方區塊貼上想要加註注音的文字</ControlPanel>
+      <ControlPanel>
+        <a href="https://github.com/AndyWu/BunnyLionCrocodile">BunnyLionCrocodile</a> App: 請在上方區塊貼上想要加註注音的文字
+      </ControlPanel>
       <ZuYinStory>
         {paragraphComp.map((p) => <Paragraph key={p.key}>{p.words}</Paragraph>)}
       </ZuYinStory>
