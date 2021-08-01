@@ -233,7 +233,7 @@ const App = () => {
           setStoryTexts(evt.target.value);
         }}
       />
-      <ControlPanel>Toolbar</ControlPanel>
+      <ControlPanel>BunnyLionCrocodile App</ControlPanel>
       <ZuYinStory>
         {paragraphComp.map((p, i) => <Paragraph key={i}>{p}</Paragraph>)}
       </ZuYinStory>
