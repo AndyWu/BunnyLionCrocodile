@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/BunnyLionCrocodile/static/css/main.078fc833.chunk.css",
-    "main.js": "/BunnyLionCrocodile/static/js/main.6e0ca67d.chunk.js",
-    "main.js.map": "/BunnyLionCrocodile/static/js/main.6e0ca67d.chunk.js.map",
+    "main.js": "/BunnyLionCrocodile/static/js/main.af8a7ad6.chunk.js",
+    "main.js.map": "/BunnyLionCrocodile/static/js/main.af8a7ad6.chunk.js.map",
     "runtime-main.js": "/BunnyLionCrocodile/static/js/runtime-main.005e4524.js",
     "runtime-main.js.map": "/BunnyLionCrocodile/static/js/runtime-main.005e4524.js.map",
     "static/js/2.fe202538.chunk.js": "/BunnyLionCrocodile/static/js/2.fe202538.chunk.js",
@@ -15,6 +15,6 @@
     "static/js/runtime-main.005e4524.js",
     "static/js/2.fe202538.chunk.js",
     "static/css/main.078fc833.chunk.css",
-    "static/js/main.6e0ca67d.chunk.js"
+    "static/js/main.af8a7ad6.chunk.js"
   ]
 }
