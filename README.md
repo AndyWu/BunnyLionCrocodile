@@ -1,5 +1,7 @@
 # 中文字加注音
 
+![Screenshot](./screenshot.png)
+
 Demo: https://andywu.github.io/BunnyLionCrocodile/
 
 ## 動機

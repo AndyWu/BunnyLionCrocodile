@@ -19,7 +19,7 @@ const TONE_3RD = 'ˇ';
 const TONE_4TH = 'ˋ';
 
 const OriginalStory = styled.textarea`
-  height: 200px;
+  height: 150px;
   width: calc(100% - 2px - 10px);
   margin: 0 0 5px 0;
   padding: 5px;
@@ -34,6 +34,7 @@ const ControlPanel = styled.div`
 `;
 
 const ZuYinStory = styled.div`
+  font-family: DFKai-sb, 標楷體;
   writing-mode: vertical-rl;
   display: flex;
   flex-direction: row;
@@ -41,7 +42,7 @@ const ZuYinStory = styled.div`
   justify-content: flex-start;
   align-items: flex-start;
   align-content: flex-start;
-  height: calc(100% - 10px - 200px - 30px - 10px - 10px - 2px * 4 - 5px * 6);
+  height: calc(100% - 10px - 150px - 30px - 10px - 10px - 2px * 4 - 5px * 6);
   width: calc(100% - 2px - 10px);
   border: 1px solid #000;
   text-align: left;
@@ -63,7 +64,7 @@ const Paragraph = styled.div`
   // border: 1px solid red;
   text-align: left;
   margin: 5px 0 0 0;
-  padding: 5px;
+  padding: 0;
   overflow-x: scroll;
   overflow-y: auto;
 `;
