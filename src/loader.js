@@ -2691,5 +2691,5 @@ const map = list.reduce((sum, curr) => {
   return sum;
 }, {});
 
-// console.log(map['齊'])
+// console.log(map['上'])
 export default map;

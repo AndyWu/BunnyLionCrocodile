@@ -31,11 +31,13 @@ const ControlPanel = styled.div`
   margin: 5px 0;
   // border: 1px solid #000;
   padding: 5px;
+  display: flex;
+  flex-direction: row;
 `;
 
 const ZuYinStory = styled.div`
   font-family: DFKai-sb, 標楷體;
-  writing-mode: vertical-rl;
+  writing-mode: ${(prop) => (prop.orientation === 'vertical' ? 'vertical-rl' : 'lr')};
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -53,7 +55,6 @@ const ZuYinStory = styled.div`
 `;
 
 const Paragraph = styled.div`
-  writing-mode: vertical-rl;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -71,14 +72,13 @@ const Paragraph = styled.div`
 
 const CharacterZuYinBlock = styled.div`
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: ${(prop) => (prop.orientation === 'vertical' ? 'column-reverse' : 'row')};
   width: 75px;
   height: 60px;
   // border: 1px solid black;
 `;
 
 const CharacterBlock = styled.div`
-  writing-mode: rl;
   width: 50px;
   height: 50px;
   // border: 1px solid blue;
@@ -89,7 +89,7 @@ const CharacterBlock = styled.div`
   padding: 0;
 `;
 const ZuYinBlock = styled.div`
-  writing-mode: rl;
+  writing-mode: ${(prop) => (prop.orientation === 'vertical' ? 'vertical-rl' : 'lr')};
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -103,7 +103,6 @@ const ZuYinBlock = styled.div`
   // border: 1px solid red;
 `;
 const Phonetic = styled.div`
-  writing-mode: rl;
   margin: 0;
   padding: 0;
   width: 13px;
@@ -114,11 +113,10 @@ const Phonetic = styled.div`
   font-size: 13px;
 `;
 const Tone = styled.div`
-  writing-mode: rl;
   margin: ${(prop) => {
     switch (prop.type) {
       case TONE_DOT:
-        return '0 0 -5px 0';
+        return '0 0 -4px 0';
       case TONE_2ND:
         return '-15px -8px 0 0';
       case TONE_3RD:
@@ -138,7 +136,7 @@ const Tone = styled.div`
   font-size: 13px;
 `;
 
-const WordBlock = (char, zuYin, idx) => {
+const WordBlock = (char, zuYin, idx, outputFormat) => {
   let zuYinBlock = null;
   if (zuYin) {
     if (zuYin.includes(TONE_DOT)) {
@@ -201,27 +199,28 @@ const WordBlock = (char, zuYin, idx) => {
   }
 
   return (
-    <CharacterZuYinBlock key={idx}>
+    <CharacterZuYinBlock key={idx} orientation={outputFormat}>
       <CharacterBlock>{char}</CharacterBlock>
       {zuYinBlock}
     </CharacterZuYinBlock>
   );
 };
 
-const WordBlocks = (phrases, idx) => {
+const WordBlocks = (phrases, idx, outputFormat) => {
   const chars = phrases.map((p) => p.split('')).flat();
   const zuYins = phrases.map((p) => (map[p] ? map[p].split(' ') : null)).flat();
 
-  return chars.map((c, i) => WordBlock(c, zuYins[i]?.replace('-', ''), `${idx}_${i}`));
+  return chars.map((c, i) => WordBlock(c, zuYins[i]?.replace('-', ''), `${idx}_${i}`, outputFormat));
 };
 
 const App = () => {
   const [storyTexts, setStoryTexts] = useState(STORY);
+  const [outputFormat, setOutputFormat] = useState('vertical');
   const paragraphs = getParagraphs(storyTexts);
   const paragraphComp = paragraphs.map((paragraph, idx) => {
     const sentences = getSentences(` ${paragraph} `, map);
     const phrasesInSentences = sentences.map((sentence) => getPhrases(sentence, map));
-    const words = phrasesInSentences.map((phrase, i) => WordBlocks(phrase, i));
+    const words = phrasesInSentences.map((phrase, i) => WordBlocks(phrase, i, outputFormat));
     return {
       words: words.flat(),
       key: idx,
@@ -237,12 +236,34 @@ const App = () => {
         }}
       />
       <ControlPanel>
-        <a href="https://github.com/AndyWu/BunnyLionCrocodile">BunnyLionCrocodile</a>
-        {' '}
-        App: 請在上方區塊貼上想要加註注音的文字
+        <div>
+          <a href="https://github.com/AndyWu/BunnyLionCrocodile">BunnyLionCrocodile</a>
+          {' '}
+          App: 請在上方區塊貼上想要加註注音的文字
+        </div>
+        <div style={{ marginLeft: '50px' }}>
+          格式：
+          <label htmlFor="horizontal">
+            <input type="radio" id="horizontal" name="orientation" value="horizontal" checked={outputFormat === 'horizontal'} onChange={(e) => { setOutputFormat(e.target.value); }} />
+            橫式
+          </label>
+          <label htmlFor="vertical">
+            <input type="radio" id="vertical" name="orientation" value="vertical" checked={outputFormat === 'vertical'} onChange={(e) => { setOutputFormat(e.target.value); }} />
+            直式
+          </label>
+        </div>
       </ControlPanel>
-      <ZuYinStory>
-        {paragraphComp.map((p) => <Paragraph key={p.key}>{p.words}</Paragraph>)}
+      <ZuYinStory orientation={outputFormat}>
+        {
+          paragraphComp.map((p) => (
+            <Paragraph
+              key={p.key}
+              orientation={outputFormat}
+            >
+              {p.words}
+            </Paragraph>
+          ))
+        }
       </ZuYinStory>
     </>
   );
