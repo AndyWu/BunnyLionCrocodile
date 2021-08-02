@@ -47,7 +47,7 @@ const ZuYinStory = styled.div`
   height: calc(100% - 10px - 150px - 30px - 10px - 10px - 2px * 4 - 5px * 6);
   width: calc(100% - 2px - 10px);
   border: 1px solid #000;
-  text-align: left;
+  text-align: center;
   margin: 5px 0 0 0;
   padding: 5px;
   overflow-x: scroll;
@@ -63,7 +63,7 @@ const Paragraph = styled.div`
   align-content: flex-start;
   height: 100%;
   // border: 1px solid red;
-  text-align: left;
+  text-align: center;
   margin: 5px 0 0 0;
   padding: 0;
   overflow-x: scroll;
@@ -82,7 +82,7 @@ const CharacterBlock = styled.div`
   width: 50px;
   height: 50px;
   // border: 1px solid blue;
-  text-align: left;
+  text-align: center;
   line-height: 50px;
   font-size: 50px;
   margin: 0;
@@ -239,7 +239,7 @@ const App = () => {
         <div>
           <a href="https://github.com/AndyWu/BunnyLionCrocodile">BunnyLionCrocodile</a>
           {' '}
-          App: 請在上方區塊貼上想要加註注音的文字
+          : 請在上方區塊貼上中文字
         </div>
         <div style={{ marginLeft: '50px' }}>
           格式：
