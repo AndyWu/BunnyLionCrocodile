@@ -1,6 +1,7 @@
 # 中文字加注音
 
-![Screenshot](./screenshot.png)
+![Horizontal](./sc-h.png)
+![Vertical](./sc-v.png)
 
 Demo: https://andywu.github.io/BunnyLionCrocodile/
 
