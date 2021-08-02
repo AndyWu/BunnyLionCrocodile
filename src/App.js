@@ -219,7 +219,7 @@ const App = () => {
   const [storyTexts, setStoryTexts] = useState(STORY);
   const paragraphs = getParagraphs(storyTexts);
   const paragraphComp = paragraphs.map((paragraph, idx) => {
-    const sentences = getSentences(` ${paragraph}`, map);
+    const sentences = getSentences(` ${paragraph} `, map);
     const phrasesInSentences = sentences.map((sentence) => getPhrases(sentence, map));
     const words = phrasesInSentences.map((phrase, i) => WordBlocks(phrase, i));
     return {
